@@ -1,13 +1,24 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs"; // Added setLocalStorage
 
+// If items in cart - Displays(Renders) each item.  If cart empty - Display "Cart Empty"
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  if (cartItems.length === 0) {
+    document.querySelector(".product-list").textContent = "Cart empty";
+  } else {
+    document.querySelector(".product-list").innerHTML = htmlItems.join("");
+    const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
+    document.querySelector(".cart-total").innerHTML = `Total: $${total}`;
+    document.querySelector(".cart-footer").classList.remove("hide");
+  }
 }
 
+// This is how each "item" in the cart will be displayed(Rendered) on the page
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
+  <span class="cart-card__remove" data-id="${item.Id}">x</span>
+  
   <a href="#" class="cart-card__image">
     <img
       src="${item.Image}"
@@ -25,4 +36,25 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+// Removes an item from the cart
+function removeFromCart(id) {
+  const cartItems = getLocalStorage("so-cart") || [];
+
+  const itemIndex = cartItems.findIndex((item) => item.Id === id);
+
+  if (itemIndex !== -1) {
+    cartItems.splice(itemIndex, 1);
+    setLocalStorage("so-cart", cartItems);
+    renderCartContents();
+  }
+}
+// event listener to remove item on "click"
+document.querySelector(".product-list").addEventListener("click", (event) => {
+  if (event.target.classList.contains("cart-card__remove")) {
+    const productId = event.target.getAttribute("data-id");
+    removeFromCart(productId);
+  }
+});
+
+// Calls the function
 renderCartContents();

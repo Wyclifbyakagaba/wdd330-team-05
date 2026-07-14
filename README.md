@@ -24,7 +24,7 @@
 _BYU-Pathway Worldwide improves lives through access to spiritually based, online affordable higher education. Its mission is to develop disciples of Jesus Christ who are leaders in their homes, the Church, and their communities._
 
 
-
+---
 #### Review the Development and Deployment Process
 
 From here on you should follow this process with each of the Trello tasks you complete throughout the course. You may want to copy or reference these task steps for future reference until it becomes a habit.
@@ -42,15 +42,16 @@ From here on you should follow this process with each of the Trello tasks you co
 11. Move the Trello card to the "Done" list.
 
 
-
+---
 #### Some git commands from the command line
+[git cheat sheet](https://git-scm.com/cheat-sheet) https://git-scm.com/cheat-sheet
 
-- git status
-show modified files in working directory, staged for your next commit
-- git branch
-list your branches. a * will appear next to the currently active branch
-- git branch [branch-name]
-- git switch -c [branch-name]
-create a new branch at the current commit
-- git switch [branch-name]
-switch branches
+- `git status` show modified files in working directory, staged for your next commit
+- `git branch` list your branches. a * will appear next to the currently active branch
+- `git branch --sort=-committerdate` List branches by most recently committed to
+- `git branch [branch-name]` or `git switch -c [branch-name]` create a new branch at the current commit
+- `git switch [branch-name]` or `git checkout [branch-name]` switch branches
+- `git branch -d [branch-name]` delete branch
+- `git commit - 'message'` Make a commit with message
+- `git push` Push the current branch to its remote "tracking branch"
+- `git pull` Fetch changes and then merge them into your current branch
