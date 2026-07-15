@@ -7,5 +7,3 @@ const element = document.querySelector(".product-list");
 const productList = new ProductList("tents", dataSource, element);
 
 productList.init();
-
-
